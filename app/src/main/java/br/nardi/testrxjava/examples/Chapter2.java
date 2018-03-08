@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import br.nardi.testrxjava.models.User;
@@ -125,6 +126,19 @@ public class Chapter2 {
         return filteredUsers;
     }
 
+
+    public User getUserWithId(int id) {
+        try {
+            new Thread(() -> { }).sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<User> users = population();
+        return users.stream()
+                .filter(user -> user.code == id)
+                .findAny()
+                .orElse(null);
+    }
     /**
      * Push vs. Pull
      */
@@ -176,5 +190,48 @@ public class Chapter2 {
                 .subscribe(i -> {
                     Log.d(TAG, "val: " + i);
                 });
+    }
+
+    public void just() {
+        Observable.just(1, 2, 3)
+                .subscribe(val -> {
+                    Log.d(TAG, "just(): " + val);
+                });
+    }
+
+    public void fromArray() {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        Observable.fromArray(list)
+                .subscribe(val -> {
+                    Log.d(TAG, "fromArray(): " + val);
+                });
+    }
+
+    public void fromIterable() {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        Observable.fromIterable(list)
+                .subscribe(val -> {
+                    Log.d(TAG, "fromIterable(): " + val);
+                });
+    }
+
+    public void range() {
+        Observable.range(1, 10)
+                .subscribe(val -> {
+                    Log.d(TAG, "range(): " + val);
+                });
+    }
+
+    public void fromCallable() {
+        Observable<User> userObservable = Observable.fromCallable(() -> getUserWithId(6));
+        userObservable.subscribe(user -> {
+            Log.d(TAG, "fromCallable(): " + user.code + "|" + user.hasBlog());
+        });
     }
 }

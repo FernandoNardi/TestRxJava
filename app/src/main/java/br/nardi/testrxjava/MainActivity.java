@@ -2,9 +2,6 @@ package br.nardi.testrxjava;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import java.util.List;
-
 import br.nardi.testrxjava.examples.Chapter1;
 import br.nardi.testrxjava.examples.Chapter2;
 
@@ -26,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
          */
         //new Chapter2().main();
         //new Chapter2().main2();
-        new Chapter2().main3();
+        //new Chapter2().main3();
+//        new Chapter2().main4();
 
     }
 }
