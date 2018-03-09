@@ -126,7 +126,6 @@ public class Chapter2 {
         return filteredUsers;
     }
 
-
     public User getUserWithId(int id) {
         try {
             new Thread(() -> { }).sleep(3000);
@@ -139,6 +138,7 @@ public class Chapter2 {
                 .findAny()
                 .orElse(null);
     }
+
     /**
      * Push vs. Pull
      */
@@ -171,7 +171,6 @@ public class Chapter2 {
         });
         Log.d(TAG, "After subscribing.");
     }
-
 
     /**
      * Operator
@@ -232,6 +231,32 @@ public class Chapter2 {
         Observable<User> userObservable = Observable.fromCallable(() -> getUserWithId(6));
         userObservable.subscribe(user -> {
             Log.d(TAG, "fromCallable(): " + user.code + "|" + user.hasBlog());
+        });
+    }
+
+    public void defer() {
+        Observable<User> userObservable = Observable.defer(() -> Observable.just(getUserWithId(7)));
+
+        userObservable.subscribe(user -> {
+            Log.d(TAG, "defer(): " + user.code + "|" + user.hasBlog());
+        });
+    }
+
+    public void lazyObservable() {
+        Observable<User> lazyObservable = Observable.fromCallable(() -> getUserWithId(5));
+
+        lazyObservable.subscribe(user -> {
+            // After subscribing, the network call is made and the user object is returned
+            Log.d(TAG, "lazyObservable(): " + user.code + "|" + user.hasBlog());
+        });
+    }
+
+    public void notLazyObservable() {
+        Observable<User> notLazyObservable = Observable.just(getUserWithId(10));
+
+        notLazyObservable.subscribe(user -> {
+            // After subscribing, the network call has already been made on construction. The user object is still returned.
+            Log.d(TAG, "notLazyObservable(): " + user.code + "|" + user.hasBlog());
         });
     }
 }

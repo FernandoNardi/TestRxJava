@@ -44,4 +44,19 @@ public class Chapter2Test {
     public void fromCallable() {
         new Chapter2().fromCallable();
     }
+
+    @Test
+    public void defer() {
+        new Chapter2().defer();
+    }
+
+    @Test
+    public void lazyObservable() {
+        new Chapter2().lazyObservable();
+    }
+
+    @Test
+    public void notLazyObservable() {
+        new Chapter2().notLazyObservable();
+    }
 }
