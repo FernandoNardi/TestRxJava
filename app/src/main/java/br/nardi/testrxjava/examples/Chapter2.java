@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import br.nardi.testrxjava.models.Post;
 import br.nardi.testrxjava.models.User;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
