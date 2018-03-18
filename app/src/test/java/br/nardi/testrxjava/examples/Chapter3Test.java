@@ -14,4 +14,8 @@ public class Chapter3Test {
         new Chapter3().mapWithFilter();
     }
 
+    @Test
+    public void flatMap() {
+        new Chapter3().flatMap();
+    }
 }

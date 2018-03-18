@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.nardi.testrxjava.models.Post;
+import br.nardi.testrxjava.models.User;
+import br.nardi.testrxjava.models.UserDetail;
 import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Nardi on 15/03/2018.
@@ -30,6 +33,62 @@ public class Chapter3 {
         return posts;
     }
 
+    private List<User> populationUsers() {
+        List<User> users = new ArrayList<>();
+        users.add(new User(1, true));
+        users.add(new User(2, false));
+        users.add(new User(3, false));
+        users.add(new User(4, true));
+        users.add(new User(5, false));
+        users.add(new User(6, true));
+        users.add(new User(7, true));
+        users.add(new User(8, true));
+        users.add(new User(9, false));
+        users.add(new User(10, true));
+        return users;
+    }
+
+    private List<UserDetail> populationUsersDetail() {
+        List<UserDetail> usersDetails = new ArrayList<>();
+        usersDetails.add(new UserDetail(1, 30, 2));
+        usersDetails.add(new UserDetail(2, 18, 6));
+        usersDetails.add(new UserDetail(3, 21, 10));
+        usersDetails.add(new UserDetail(4, 55, 8));
+        usersDetails.add(new UserDetail(5, 42, 4));
+        usersDetails.add(new UserDetail(6, 36, 3));
+        usersDetails.add(new UserDetail(7, 36, 9));
+        usersDetails.add(new UserDetail(8, 79, 7));
+        usersDetails.add(new UserDetail(9, 17, 1));
+        usersDetails.add(new UserDetail(10, 20, 5));
+        return usersDetails;
+    }
+
+    private User getUser(int userId) {
+        try {
+            new Thread(() -> { }).sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<User> users = populationUsers();
+        return users.stream()
+                .filter(user -> user.code == userId)
+                .findAny()
+                .orElse(null);
+    }
+
+    private UserDetail getUserDetail(User user) {
+        try {
+            new Thread(() -> { }).sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<UserDetail> usersDetails = populationUsersDetail();
+        return usersDetails.stream()
+                .filter(userDetail -> userDetail.userCode == user.code)
+                .findAny()
+                .orElse(null);
+    }
+
     public void mapWithFilter() {
         Observable<Post> postObservable = Observable.fromIterable(population());
 
@@ -41,5 +100,14 @@ public class Chapter3 {
                 });
     }
 
+    public void flatMap() {
+        Observable<User> userObservable = Observable.fromCallable(() -> getUser(10));
 
+        Observable<UserDetail> userDetailObservable = userObservable.flatMap(user -> Observable.fromCallable(() -> getUserDetail(user)));
+
+        userDetailObservable.subscribe(userDetail -> {
+            // Received user's detail information here
+            Log.d(TAG, "flatMap(): " + userDetail.toString());
+        });
+    }
 }

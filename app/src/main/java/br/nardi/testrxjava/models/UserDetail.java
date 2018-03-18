@@ -6,9 +6,22 @@ package br.nardi.testrxjava.models;
 
 public class UserDetail {
 
+    public int code;
     public int age;
+    public int userCode;
 
-    public UserDetail(int age) {
+    public UserDetail(int code, int age, int userCode) {
+        this.code = code;
         this.age = age;
+        this.userCode = userCode;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDetail{" +
+                "code=" + code +
+                ", age=" + age +
+                ", userCode=" + userCode +
+                '}';
     }
 }
