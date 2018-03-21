@@ -18,4 +18,9 @@ public class Chapter3Test {
     public void flatMap() {
         new Chapter3().flatMap();
     }
+
+    @Test
+    public void concatMap() {
+        new Chapter3().concatMap();
+    }
 }

@@ -65,7 +65,7 @@ public class Chapter3 {
 
     private User getUser(int userId) {
         try {
-            new Thread(() -> { }).sleep(3000);
+            new Thread(() -> { }).sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class Chapter3 {
 
     private UserDetail getUserDetail(User user) {
         try {
-            new Thread(() -> { }).sleep(3000);
+            new Thread(() -> { }).sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -104,6 +104,19 @@ public class Chapter3 {
         Observable<User> userObservable = Observable.fromCallable(() -> getUser(10));
 
         Observable<UserDetail> userDetailObservable = userObservable.flatMap(user -> Observable.fromCallable(() -> getUserDetail(user)));
+
+        userDetailObservable.subscribe(userDetail -> {
+            // Received user's detail information here
+            Log.d(TAG, "flatMap(): " + userDetail.toString());
+        });
+    }
+
+    public void concatMap() {
+        Observable<User> userObservable = Observable.fromCallable(() -> getUser(10));
+
+        Observable<UserDetail> userDetailObservable = userObservable.concatMap(user -> {
+            return Observable.fromCallable(() -> getUserDetail(user));
+        });
 
         userDetailObservable.subscribe(userDetail -> {
             // Received user's detail information here
