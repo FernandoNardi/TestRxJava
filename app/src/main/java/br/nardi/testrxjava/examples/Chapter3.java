@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Chapter3 {
 
-    private static final String TAG = Chapter2.class.getSimpleName();
+    private static final String TAG = Chapter3.class.getSimpleName();
 
     public Chapter3() { }
 

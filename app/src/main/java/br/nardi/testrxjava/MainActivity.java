@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import br.nardi.testrxjava.examples.Chapter1;
 import br.nardi.testrxjava.examples.Chapter2;
+import br.nardi.testrxjava.examples.Chapter4;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         //new Chapter2().main2();
         //new Chapter2().main3();
 //        new Chapter2().main4();
+
+        new Chapter4().example2();
 
     }
 }
