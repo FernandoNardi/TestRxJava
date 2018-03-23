@@ -2,6 +2,7 @@ package br.nardi.testrxjava.examples;
 
 import android.util.Log;
 
+import br.nardi.testrxjava.models.NetworkClient;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -63,5 +64,32 @@ public class Chapter4 {
                 .observeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(value -> print("(d) : " + value));
+    }
+
+    public void example3() {
+        NetworkClient networkClient = new NetworkClient();
+
+        String[] userNames = new String[] { "John", "Mike", "Jacob" };
+
+        Observable.fromArray(userNames)
+                .subscribeOn(Schedulers.io())
+                .map(networkClient::fetchUser)
+                .subscribe(user -> print("Got user: " + user.userName));
+    }
+
+    public void example3_1() {
+        NetworkClient networkClient = new NetworkClient();
+
+        String[] userNames = new String[] { "John", "Mike", "Jacob" };
+
+        Observable.fromArray(userNames)
+                .subscribeOn(Schedulers.io())
+                .flatMap(username ->
+                                Observable.fromCallable(() ->
+                                                networkClient.fetchUser(username)
+                                ).subscribeOn(Schedulers.io())
+                )
+                .subscribe(user -> print("Got user: " + user.userName));
+
     }
 }

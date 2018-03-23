@@ -123,4 +123,20 @@ public class Chapter3 {
             Log.d(TAG, "flatMap(): " + userDetail.toString());
         });
     }
+
+
+    // Utility Operators
+    public void doOnNext() {
+        Observable<Integer> integerObservable = Observable.range(1, 3);
+
+        integerObservable.doOnNext(i -> Log.d(TAG, "Emitted: " + i))
+                .map(i -> i * 2)
+                .doOnNext(i -> Log.d(TAG, "map(): " + i))
+                .filter(i -> i % 2 == 0)
+                .doOnNext(i -> Log.d(TAG, "filter(): " + i))
+                .subscribe(i -> {
+                   Log.d(TAG, "onNext(): " + i);
+                });
+
+    }
 }
