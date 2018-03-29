@@ -6,6 +6,7 @@ import br.nardi.testrxjava.examples.Chapter1;
 import br.nardi.testrxjava.examples.Chapter2;
 import br.nardi.testrxjava.examples.Chapter3;
 import br.nardi.testrxjava.examples.Chapter4;
+import br.nardi.testrxjava.examples.Chapter5;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
         //new Chapter2().main3();
 //        new Chapter2().main4();
 
-        new Chapter4().example3_1();
+//        new Chapter4().example3_1();
+
+        new Chapter5().writeTextToFile1(getApplicationContext(), "test.txt", "Hello world!!");
 
     }
 }
